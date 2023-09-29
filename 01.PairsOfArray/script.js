@@ -1,24 +1,32 @@
-function findPairsWithSum(arr, targetSum) {
-  const pairs = [];
-  const visitedNumbers = new Set();
+//Pairs of Sum
+function removeDuplicates(arr) {
+  const uniqueArrays = [];
+  const seen = new Set();
 
-  for (let i = 0; i < arr.length; i++) {
-    const currentNumber = arr[i];
-    const difference = targetSum - currentNumber;
+  for (const subArray of arr) {
+    const subArrayString = JSON.stringify(subArray);
 
-    if (visitedNumbers.has(difference)) {
-      pairs.push([currentNumber, difference]);
+    if (!seen.has(subArrayString)) {
+      seen.add(subArrayString);
+      uniqueArrays.push(subArray);
     }
-
-    visitedNumbers.add(currentNumber);
   }
 
-  return pairs;
+  return uniqueArrays;
+}
+function pairsOfSum(arr, target){
+  let res = [];
+  for(let i = 0; i < arr.length; i++){
+    for(let j = 0; j < arr.length; j++){
+      if(arr[i] + arr[j] == target){
+        res.push([arr[i], arr[j]]);
+      }
+    }
+  }
+
+  return removeDuplicates(res);
 }
 
-// const array = [1, 2, 4, 5, 2, 6, 8, 8, 10, 10, 10, 2];
-const array = [-1, 2, 3, 4, -2, 6]
-const targetSum = 1;
-
-const pairs = findPairsWithSum(array, targetSum);
-console.log(pairs);
+let arr = [1, 2, 4, 5, 2, 6, 8, 8, 10, 10, 10, 2];
+let target = 7;
+console.log(pairsOfSum(arr, target));
