@@ -1,22 +1,24 @@
-function findPairs(array, targetSum) {
-    const pairs = new Set();
-    for (let i = 0; i < array.length - 1; i++) {
-      // For each element, check if there is another element in the
-      // array whose sum is equal to the given target sum.
-      for (let j = i + 1; j < array.length; j++) {
-        if (array[i] + array[j] === targetSum) {
-          // Convert the pair to a string and add it to the set
-          pairs.add(`${array[i]}, ${array[j]}`);
-        }
-      }
+function findPairsWithSum(arr, targetSum) {
+  const pairs = [];
+  const visitedNumbers = new Set();
+
+  for (let i = 0; i < arr.length; i++) {
+    const currentNumber = arr[i];
+    const difference = targetSum - currentNumber;
+
+    if (visitedNumbers.has(difference)) {
+      pairs.push([currentNumber, difference]);
     }
-  
-    return [...pairs].map(pair => pair.split(', ').map(Number));
+
+    visitedNumbers.add(currentNumber);
+  }
+
+  return pairs;
 }
-  
-const array = [1, 2, 4, 5, 2, 6, 8, 8, 10, 10, 10, 2];
-const targetSum = 7;
-  
-const pairs = findPairs(array, targetSum);
-  
+
+// const array = [1, 2, 4, 5, 2, 6, 8, 8, 10, 10, 10, 2];
+const array = [-1, 2, 3, 4, -2, 6]
+const targetSum = 1;
+
+const pairs = findPairsWithSum(array, targetSum);
 console.log(pairs);
